@@ -38,7 +38,7 @@ export class SkillsListComponent implements OnInit {
   }
 
   async editSkill(id) {
-    await this.router.navigate([`/skills-edit/${id}`]);
+    await this.router.navigate([`/skills/${id}/edit`]);
   }
 
 

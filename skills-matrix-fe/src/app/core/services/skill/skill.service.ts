@@ -41,13 +41,13 @@ export class SkillService {
   //   return this.http.post(`${this.uri}/skills/retrieve`, ids);
   // }
   //
-  // updateSkill (id, name) {
-  //   const skill = {
-  //     name: name,
-  //     display_name: name
-  //   };
-  //   return this.http.post(`${this.uri}/skills/${id}/update`, skill);
-  // }
+  updateSkill (name, id): Observable<any>  {
+    const skill = {
+      name: name
+    };
+    console.log('modified Skill', skill);
+    return this.http.put(`${this.uri}/skills/${id}`, skill);
+  }
 
   deleteSkill(id) {
     return this.http.delete(`${this.uri}/skills/${id}`);

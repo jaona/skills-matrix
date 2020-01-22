@@ -96,7 +96,7 @@ export default class SkillController {
   public updateSkills = async (req: Request, res: Response, next: any): Promise<any> => {
     try {
       const skillsColumnSet = new pgp.helpers.ColumnSet(
-        ["name", "created_at", "updated_at"],
+        ["name"],
         {table: "skills"});
       const skillsValues = req.body;
       const skillsQuery = pgp.helpers.update(skillsValues, skillsColumnSet) + " WHERE id = $1";
