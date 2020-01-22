@@ -4,6 +4,7 @@ import {MissionsViewComponent} from "./pages/missions-view/missions-view.compone
 import {MissionsDeleteComponent} from "./pages/missions-delete/missions-delete.component";
 import {MissionsCreateComponent} from "./pages/missions-create/missions-create.component";
 import {MissionsListComponent} from "./pages/missions-list/missions-list.component";
+import { MissionsEditComponent } from './pages/missions-edit/missions-edit.component';
 
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'missions/create', component: MissionsCreateComponent },
   { path: 'missions/:id', component: MissionsViewComponent },
   { path: 'missions/:id/delete', component: MissionsDeleteComponent },
+  { path: 'missions/:id/edit', component: MissionsEditComponent },
   { path: 'missions', component: MissionsListComponent}
 
 ];

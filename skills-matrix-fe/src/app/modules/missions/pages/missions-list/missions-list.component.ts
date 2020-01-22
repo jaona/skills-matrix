@@ -40,4 +40,8 @@ export class MissionsListComponent implements OnInit {
         this.fetchMissions();
       });
   }
+
+  editMission(id) {
+    this.router.navigate([`/missions/${id}/edit`]);
+  }  
 }

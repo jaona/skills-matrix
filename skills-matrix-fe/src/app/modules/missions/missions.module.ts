@@ -8,6 +8,7 @@ import { MissionsDeleteComponent } from './pages/missions-delete/missions-delete
 import {MaterialModule} from "../../material.module";
 import { MissionsListComponent } from './pages/missions-list/missions-list.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { MissionsEditComponent } from './pages/missions-edit/missions-edit.component';
 
 
 
@@ -16,7 +17,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     MissionsViewComponent,
     MissionsCreateComponent,
     MissionsDeleteComponent,
-    MissionsListComponent
+    MissionsListComponent,
+    MissionsEditComponent
   ],
   imports: [
     CommonModule,
