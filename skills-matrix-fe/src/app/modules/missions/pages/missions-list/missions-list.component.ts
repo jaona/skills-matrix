@@ -12,7 +12,7 @@ import {GetMissionsServiceResponse} from '../../../../core/models/mission/missio
 export class MissionsListComponent implements OnInit {
 
   missions: any[];
-  displayedColumns = ['id', 'resource_id', 'project_id', 'position_id', 'start_date', 'end_date', 'is_active'];
+  displayedColumns = ['id', 'resource_id', 'project_id', 'position_id', 'start_date', 'end_date', 'is_active', 'actions'];
 
   constructor(private missionService: MissionService, private router: Router) {
   }
@@ -31,5 +31,13 @@ export class MissionsListComponent implements OnInit {
 
   async viewMission(id) {
     await this.router.navigate([`/missions/${id}`]);
+  }
+
+  deleteMission(id) {
+    this.missionService
+      .deleteMission(id)
+      .subscribe(() => {
+        this.fetchMissions();
+      });
   }
 }
