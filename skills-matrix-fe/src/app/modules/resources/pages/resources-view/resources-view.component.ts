@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import {GetResourcesServiceResponse, Resource} from '../../../../core/models/resource/resource.model';
+import {Component, OnInit} from '@angular/core';
+import {GetResourcesServiceResponse} from '../../../../core/models/resource/resource.model';
 import {ResourceService} from '../../../../core/services/resource/resource.service';
 import {ActivatedRoute, Router} from '@angular/router';
 
-import { Chart } from 'chart.js';
+import {Chart} from 'chart.js';
+
 
 @Component({
   selector: 'app-resources-view',
@@ -16,21 +17,26 @@ export class ResourcesViewComponent implements OnInit {
   resource: any;
   lineChart: any;
 
-  constructor(private resourceService: ResourceService, private router: Router, private route: ActivatedRoute) { }
+  // competencies: resource_competencies[];
+
+  constructor(private resourceService: ResourceService, private router: Router, private route: ActivatedRoute) {
+
+  }
 
   ngOnInit() {
     this.resourceId = this.route.snapshot.paramMap.get('id');
     this.fetchResource(this.resourceId);
-
     this.lineChart = new Chart('lineChart', {
       type: 'bar',
       data: {
+        // labels: this.getLabels().values(),
+        // tslint:disable-next-line:max-line-length
         labels: ['Programming Languages & DB', 'Technologies', 'Amadeus Tools', 'Software & Tools', 'Methodologies & Processes', 'TNT Topics'],
         datasets: [{
           label: 'actual',
           backgroundColor: "rgba(200,0,0,0.2)",
           lineTension: 0,
-          data: [2, 4, 3, 2, 3.5, 1]
+          data: [2, 4, 3, 2, 3.5, 1],
         }]
       },
       options: {
@@ -42,8 +48,9 @@ export class ResourcesViewComponent implements OnInit {
         tooltips: {
           enabled: true,
           callbacks: {
-            label: function(tooltipItem, data) {
-              return data.datasets[tooltipItem.datasetIndex].label + ' : ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+            label: function (tooltipItem, data) {
+              return data.datasets[tooltipItem.datasetIndex].label + ' : ' +
+                +data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
             }
           }
         }
@@ -52,14 +59,23 @@ export class ResourcesViewComponent implements OnInit {
 
   }
 
+
   fetchResource(id) {
     this.resourceService
       .getResourceById(id)
-      .subscribe( (getResourceByIdServiceResponse: GetResourcesServiceResponse) => {
+      .subscribe((getResourceByIdServiceResponse: GetResourcesServiceResponse) => {
         this.resource = getResourceByIdServiceResponse.data;
         console.log('Data requested ...');
         console.log(this.resource);
       });
+  }
+
+  getLabels(): string[] {
+    let chartLabels = [];
+    this.resource.competencies.forEach(f => {
+      chartLabels.push(f.name);
+    });
+    return chartLabels;
   }
 
   editResource(id) {
@@ -72,6 +88,10 @@ export class ResourcesViewComponent implements OnInit {
       .subscribe(() => {
         this.router.navigate([`/resources`]);
       });
+  }
+
+  goToAddCompetency(id) {
+    this.router.navigate([`/resources/${id}/competencies`]);
   }
 
 }

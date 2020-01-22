@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,8 @@ export class PositionService {
       description: description
     };
     console.log("added Position", position);
-    return this.http.post(`${this.uri}/positions`, position);
+    return this.http.post(`${this.uri}/positions`, position, {responseType: 'json', observe: 'response'});
+
   }
 
   getPositionsByProjectId(project_id) {

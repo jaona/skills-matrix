@@ -17,10 +17,11 @@ import {SkillsModule} from './modules/skills/skills.module';
 import {ProjectService} from './core/services/project/project.service';
 import {ResourceService} from './core/services/resource/resource.service';
 import {SkillService} from './core/services/skill/skill.service';
-import {MissionsModule} from "./modules/missions/missions.module";
-import {PositionService} from "./core/services/position/position.service";
+import {MissionsModule} from './modules/missions/missions.module';
+import {PositionService} from './core/services/position/position.service';
 import {AppDashboardComponent} from './core/components/app-dashboard/app-dashboard.component';
-import {FormsModule} from "./modules/forms/forms.module";
+import {FormsModule} from './modules/forms/forms.module';
+import {CompetencyService} from "./core/services/competency/competency.service";
 
 @NgModule({
   declarations: [AppComponent, AppDashboardComponent],
@@ -45,7 +46,8 @@ import {FormsModule} from "./modules/forms/forms.module";
     SkillService,
     ResourceService,
     ProjectService,
-    PositionService
+    PositionService,
+    CompetencyService
   ],
   bootstrap: [AppComponent]
 })

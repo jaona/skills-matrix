@@ -3,9 +3,10 @@ import {GetProjectsServiceResponse} from "../../../../core/models/project/projec
 import {ActivatedRoute, Router} from "@angular/router";
 import {ProjectService} from "../../../../core/services/project/project.service";
 import {PositionService} from "../../../../core/services/position/position.service";
-import {GetPositionsServiceResponse} from "../../../../core/models/position/position.model";
-import {TeamService} from "../../../../core/services/team/team.service";
-// import {ResourceService} from "../../../services/resource/resource.service";
+import {GetPositionsServiceResponse} from '../../../../core/models/position/position.model';
+import {TeamService} from '../../../../core/services/team/team.service';
+import {ResourceService} from '../../../../core/services/resource/resource.service';
+import {projects} from "../../../../../../../skills-matrix-be/src/db/models/ALL";
 
 @Component({
   selector: 'app-projects-view',
@@ -15,59 +16,60 @@ import {TeamService} from "../../../../core/services/team/team.service";
 export class ProjectsViewComponent implements OnInit {
 
   projectId: string;
-
-  project: any;
+  project: projects;
   positions: any[];
   teams: any;
-  // resources: any;
+  resources: any;
 
-  //displayedColumnsForResources = ['employee_number', 'last_name', 'first_name', 'actions'];
+  displayedColumnsForResources = ['employee_number', 'last_name', 'first_name', 'actions'];
   displayedColumnsForProjectTeams = ['name', 'actions'];
   displayedColumnsForPositions = ['name', 'actions'];
 
   constructor(private projectService: ProjectService,
               private positionService: PositionService,
-              // private resourceService: ResourceService,
+              private resourceService: ResourceService,
               private teamService: TeamService,
               private router: Router,
-              private activatedRoute: ActivatedRoute) {}
-
-  ngOnInit() {
+              private activatedRoute: ActivatedRoute) {
     this.projectId = this.activatedRoute.snapshot.paramMap.get('id');
     this.fetchProject(this.projectId);
     this.fetchPositions(this.projectId);
     this.fetchTeams(this.projectId);
-    // this.fetchResources(this.projectId);
+    this.fetchResources(this.projectId);
+  }
+
+  ngOnInit() {
+
   }
 
   fetchTeams(id) {
     this.teamService
       .getTeamsByProjectId(id)
-      .subscribe( (response: any) => {
+      .subscribe((response: any) => {
         this.teams = response.data;
         console.log('Data requested: Teams infos');
         console.log(this.teams);
-      })
+      });
   }
 
-  // fetchResources(id) {
-  //   this.resourceService
-  //     .getResourcesByProjectId(id)
-  //     .subscribe( (response: any) => {
-  //       this.resources = response.data;
-  //       console.log('Data requested: Teams infos');
-  //       console.log(this.resources);
-  //     })
-  // }
+  fetchResources(id) {
+    this.resourceService
+      .getResourcesByProjectId(id)
+      .subscribe((response: any) => {
+        this.resources = response.data;
+        console.log('Data requested: Resources infos');
+        console.log(this.resources);
+      });
+  }
 
   fetchProject(id) {
     this.projectService
       .getProjectById(id)
       .subscribe((getProjectByIdResponse: GetProjectsServiceResponse) => {
-        this.project = getProjectByIdResponse.data;
+        this.project = getProjectByIdResponse.data[0];
         console.log('Data requested: Project infos');
         console.log(this.project);
-      })
+      });
   }
 
   fetchPositions(id) {
@@ -77,7 +79,7 @@ export class ProjectsViewComponent implements OnInit {
         this.positions = getPositionsByProjectIdResponse.data;
         console.log('Data requested: Project Positions');
         console.log(this.positions);
-      })
+      });
   }
 
   editProject(id) {
