@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,20 @@ export class MissionService {
     ;
     console.log('added Mission', mission);
     return this.http.post(`${this.uri}/missions`, mission);
+  }
+
+  updateMission(id, resource_id, project_id, position_id, start_date, end_date): Observable<any> {
+    const mission = {
+        resource_id: resource_id,
+        project_id: project_id,
+        position_id: position_id,
+        start_date: start_date,
+        end_date: end_date,
+        is_active: true
+      }
+    ;
+    console.log('modified Mission: ', mission);
+    return this.http.put(`${this.uri}/missions/${id}`, mission);
   }
 
   getMissionsByProjectId(project_id) {
