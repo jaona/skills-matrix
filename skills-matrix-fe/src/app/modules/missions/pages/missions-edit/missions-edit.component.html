@@ -1,7 +1,7 @@
 <div>
 <mat-toolbar>
     <mat-toolbar-row>
-    <h2>Create Mission</h2>
+    <h2>Update Mission</h2>
     <div class="flex-spacer"></div>
     <button mat-raised-button color="primary" routerLink="/missions">CANCEL</button>
     </mat-toolbar-row>
@@ -11,7 +11,7 @@
 <div class="mat-elevation-z3" id="project-create-form-container">
 <mat-toolbar color="primary">
     <mat-toolbar-row>
-    <h3>Create New Mission</h3>
+    <h3>Update the data of the Mission</h3>
     </mat-toolbar-row>
 </mat-toolbar>
 
@@ -20,11 +20,11 @@
 
     <mat-form-field class="mission-create-form-field">
     <mat-select aria-label="Mission Resource" placeholder="Mission Resource" formControlName="missionResource" #missionResource>
-    <mat-option *ngFor="let res of resources" [value]="res.id">
-        {{ res.first_name +  res.last_name }}
-    </mat-option>
+        <mat-option *ngFor="let res of resources" [value]="res.id">
+            {{ res.first_name +  res.last_name }}
+        </mat-option>
     </mat-select>
-</mat-form-field>
+    </mat-form-field>
 
     <mat-form-field class="mission-create-form-field">
     <mat-select aria-label="Mission Project" placeholder="Mission Project" formControlName="missionProject" #missionProject>
