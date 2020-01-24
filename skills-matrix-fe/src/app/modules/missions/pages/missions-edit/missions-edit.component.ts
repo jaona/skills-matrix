@@ -8,6 +8,7 @@ import {ProjectService} from "../../../../core/services/project/project.service"
 import {ResourceService} from "../../../../core/services/resource/resource.service";
 import {PositionService} from "../../../../core/services/position/position.service";
 import {Position} from '../../../../core/models/position/position.model';
+import { Mission } from 'src/app/core/models/mission/mission.model';
 
 @Component({
   selector: 'app-missions-edit',
@@ -22,6 +23,11 @@ export class MissionsEditComponent implements OnInit {
   projects: Project[];
   positions: Position[];
 
+  mission: Mission;
+
+  selectedResource: String;
+  selectedProject: String;
+  selectedPosition: String;
 
   constructor(private missionService: MissionService, private projectService: ProjectService,
               private resourceService: ResourceService, private positionService: PositionService,
@@ -33,17 +39,39 @@ export class MissionsEditComponent implements OnInit {
       start_date: [Date, Validators.required],
       end_date: [Date, Validators.required],
     });
+    // Subscribe with RxJS to the mission
+    this.missionService.currentMission.subscribe(mission => this.mission = mission);
   }
 
   ngOnInit() {
     this.resourceService.getResources().subscribe((response: any) => {
       this.resources = response.data;
+
+      //???????????? Should have this logic here? ??????????????
+      for(let i = 0; i < this.resources.length; i++){
+        if(this.resources[i].id == this.mission.resource_id){
+          this.selectedResource = this.resources[i].first_name + this.resources[i].last_name;
+        }
+      }
     });
     this.projectService.getProjects().subscribe((response: any) => {
       this.projects = response.data;
+      
+      for(let i = 0; i < this.projects.length; i++){
+        if(this.projects[i].id == ""+this.mission.project_id){
+          this.selectedProject = this.projects[i].name;
+        }
+      }
     });
     this.positionService.getPositions().subscribe((response: any) => {
       this.positions = response.data;
+      console.log(this.positions);
+      for(let i = 0; i < this.positions.length; i++){
+        if(this.positions[i].id == this.mission.position_id){
+          this.selectedPosition = this.positions[i].description;
+        }
+      }
+      console.log(this.selectedPosition);
     });
 
   }

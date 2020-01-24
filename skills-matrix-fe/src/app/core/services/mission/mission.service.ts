@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { Mission } from '../../models/mission/mission.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,14 @@ export class MissionService {
 
   uri = 'http://localhost:3000/v1';
 
+  private missionSurce = new BehaviorSubject<Mission>(null);
+  currentMission = this.missionSurce.asObservable();
 
   constructor(private http: HttpClient) {
+  }
+
+  changeMission(mission: Mission){
+    this.missionSurce.next(mission);
   }
 
 
