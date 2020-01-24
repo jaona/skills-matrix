@@ -84,12 +84,10 @@ export class MissionsEditComponent implements OnInit {
   }
 
   //addMission(missionResource.value, missionProject.value, missionPosition.value,  start_date.value, end_date.value)
-  updateMission(missionResource, missionProject, missionPosition,  start_date, end_date){
+  updateMission(missionResource, missionProject, missionPosition, start_date, end_date){
     const id = this.route.snapshot.paramMap.get('id');
-    console.log('The id is: ' + id);
-    console.log('The new name is: ' + name);
     this.missionService.updateMission(id, missionResource, missionProject, missionPosition,  start_date, end_date).subscribe(() => {
-      this.router.navigate(['/skills']);
+      this.router.navigate(['/missions']);
     });
   }
 }
