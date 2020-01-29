@@ -27,3 +27,7 @@
   .mission-edit-form-field {
     width: 100%;
   }
+
+  .disabled {
+    pointer-events: none;
+    opacity: 0.5;   }

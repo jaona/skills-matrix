@@ -16,9 +16,32 @@
 </mat-toolbar>
 
 <form [formGroup]="modifyForm" id="mission-edit-form">
+    <!-- Read Only fields -->
+    <mat-form-field class="mission-edit-form-field disabled">
+        <label>
+            <input matInput formControlName="first_name" [readonly]=true placeholder="Resource First Name">
+        </label>
+    </mat-form-field>
+    <mat-form-field class="mission-edit-form-field disabled">
+        <label>
+            <input matInput formControlName="last_name" [readonly]=true placeholder="Resource Last Name">
+        </label>
+    </mat-form-field>
+    <mat-form-field class="mission-edit-form-field disabled">
+        <label>
+            <input matInput formControlName="project_name" [readonly]=true placeholder="Project Name">
+        </label>
+    </mat-form-field>
+    <mat-form-field class="mission-edit-form-field disabled">
+        <label>
+            <input matInput formControlName="position_name" [readonly]=true placeholder="Position Name">
+        </label>
+    </mat-form-field>
+
+    <!-- Modifiable fields -->
     <mat-form-field class="mission-edit-form-field">
         <label>
-            <input matInput placeholder="" formControlName="start_date" [matDatepicker]="start_date_picker" #start_date>
+            <input matInput placeholder="Start Date" formControlName="start_date" [matDatepicker]="start_date_picker" #start_date>
         </label>
         <mat-datepicker-toggle matSuffix [for]="start_date_picker"></mat-datepicker-toggle>
         <mat-datepicker touchUi #start_date_picker></mat-datepicker>
@@ -26,14 +49,14 @@
 
     <mat-form-field class="mission-edit-form-field">
         <label>
-            <input matInput placeholder="" formControlName="end_date" [matDatepicker]="end_date_picker" #end_date>
+            <input matInput placeholder="End Date" formControlName="end_date" [matDatepicker]="end_date_picker" #end_date>
         </label>
         <mat-datepicker-toggle matSuffix [for]="end_date_picker"></mat-datepicker-toggle>
         <mat-datepicker touchUi #end_date_picker></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field class="mission-edit-form-field">
-        <mat-select aria-label="Is Active" placeholder="" formControlName="is_active" #is_active>
+        <mat-select [(value)]="isActive" aria-label="Is Active" placeholder="Is Active" formControlName="is_active" #is_active>
             <mat-option [value]=true>TRUE</mat-option>
             <mat-option [value]=false>FALSE</mat-option>
         </mat-select>

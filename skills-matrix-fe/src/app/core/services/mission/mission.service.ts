@@ -17,7 +17,7 @@ export class MissionService {
   private position_nameSource = new BehaviorSubject<String>(null);
   private start_dateSource = new BehaviorSubject<Date>(null);
   private end_dateSource = new BehaviorSubject<Date>(null);
-  private is_activeSource = new BehaviorSubject<String>(null);
+  private is_activeSource = new BehaviorSubject<Boolean>(null);
   currentFirstName = this.first_nameSource.asObservable();
   currentLastName = this.last_nameSource.asObservable();
   currentProjectName = this.project_nameSource.asObservable();
@@ -79,7 +79,6 @@ export class MissionService {
         is_active: is_active
       }
     ;
-    console.log('modified Mission: ', mission);
     return this.http.put(`${this.uri}/missions/${id}`, mission);
   }
 
