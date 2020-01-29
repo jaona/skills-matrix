@@ -8,16 +8,16 @@
     </mat-toolbar>
     </div>
     
-    <div class="mat-elevation-z3" id="skill-create-form-container">
+    <div class="mat-elevation-z3" id="skill-edit-form-container">
     <mat-toolbar color="primary">
         <mat-toolbar-row>
         <h3>Edit the Skill</h3>
         </mat-toolbar-row>
     </mat-toolbar>
     
-    <form [formGroup]="createForm" id="skill-create-form">
+    <form [formGroup]="createForm" id="skill-edit-form">
     
-        <mat-form-field class="skill-create-form-field">
+        <mat-form-field class="skill-edit-form-field">
         <label>
             <input matInput placeholder="Skill Name" formControlName="name" #name>
         </label>
