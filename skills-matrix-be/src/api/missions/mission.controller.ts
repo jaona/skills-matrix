@@ -8,7 +8,8 @@ export default class MissionController {
   public getMissions = async (req: Request, res: Response, next: any): Promise<any> => {
     try {
 
-      const missions = await db.any("SELECT * FROM missions", []);
+      //const missions = await db.any("SELECT * FROM missions", []);
+      const missions = await db.any("SELECT m.*, r.first_name, r.last_name, pr.name AS project_name, po.name AS position_name FROM missions AS m INNER JOIN resources AS r ON m.resource_id = r.id INNER JOIN projects AS pr ON m.project_id = pr.id INNER JOIN positions AS po ON m.position_id = po.id", []);
 
       if (Object.keys(missions).length === 0) {
         throw new ErrorHandler(404, "Missions not found");
@@ -81,7 +82,7 @@ export default class MissionController {
   public updateMissions = async (req: Request, res: Response, next: any): Promise<any> => {
     try {
       const missionsColumnSet = new pgp.helpers.ColumnSet(
-        ["resource_id", "project_id", "position_id", "start_date", "end_date", "is_active"],
+        ["start_date", "end_date", "is_active"],
         {table: "missions"});
       const missionsValues = req.body;
       const missionsQuery = pgp.helpers.update(missionsValues, missionsColumnSet) + " WHERE id = $1";

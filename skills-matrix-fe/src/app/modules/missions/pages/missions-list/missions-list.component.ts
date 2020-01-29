@@ -12,15 +12,13 @@ import {GetMissionsServiceResponse, Mission} from '../../../../core/models/missi
 export class MissionsListComponent implements OnInit {
 
   missions: any[];
-  displayedColumns = ['id', 'resource_id', 'project_id', 'position_id', 'start_date', 'end_date', 'is_active', 'actions'];
-  mission: Mission;
+  displayedColumns = ['id', 'resource_id', 'first_name', 'last_name', 'project_id', 'project_name', 'position_id', 'position_name', 'start_date', 'end_date', 'is_active', 'actions'];
 
   constructor(private missionService: MissionService, private router: Router) {
   }
 
   ngOnInit() {
     this.fetchMissions();
-    this.missionService.currentMission.subscribe(mission => this.mission = mission);
   }
 
   fetchMissions() {
@@ -28,6 +26,7 @@ export class MissionsListComponent implements OnInit {
       .getMissions()
       .subscribe((getMissionsServiceResponse: GetMissionsServiceResponse) => {
         this.missions = getMissionsServiceResponse.data;
+        console.log(this.missions);
       });
   }
 
@@ -43,9 +42,9 @@ export class MissionsListComponent implements OnInit {
       });
   }
 
-  editMission(id, resource_id, project_id, position_id, start_date, end_date, is_active) {
+  editMission(id, first_name, last_name, project_name, position_name, start_date, end_date, is_active) {
     // Passing to edit component (sibiling) the data of the mission clicked
-    this.missionService.changeMission(new Mission(resource_id, project_id, position_id, start_date, end_date, is_active));
+    this.missionService.changeMission(first_name, last_name, project_name, position_name, start_date, end_date, is_active);
     this.router.navigate([`/missions/${id}/edit`]);
   }  
 }

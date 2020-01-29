@@ -10,16 +10,35 @@ export class MissionService {
 
   uri = 'http://localhost:3000/v1';
 
-  private missionSurce = new BehaviorSubject<Mission>(null);
-  currentMission = this.missionSurce.asObservable();
+  // Values to change with the method changeMission()
+  private first_nameSource = new BehaviorSubject<String>(null);
+  private last_nameSource = new BehaviorSubject<String>(null);
+  private project_nameSource = new BehaviorSubject<String>(null);
+  private position_nameSource = new BehaviorSubject<String>(null);
+  private start_dateSource = new BehaviorSubject<Date>(null);
+  private end_dateSource = new BehaviorSubject<Date>(null);
+  private is_activeSource = new BehaviorSubject<String>(null);
+  currentFirstName = this.first_nameSource.asObservable();
+  currentLastName = this.last_nameSource.asObservable();
+  currentProjectName = this.project_nameSource.asObservable();
+  currentPositionName = this.position_nameSource.asObservable();
+  currentStartDate = this.start_dateSource.asObservable();
+  currentEndDate = this.end_dateSource.asObservable();
+  currentIsActive = this.is_activeSource.asObservable();
 
   constructor(private http: HttpClient) {
   }
 
-  changeMission(mission: Mission){
-    this.missionSurce.next(mission);
+  // Call next on behaviour subjects to change current values
+  changeMission(first_name, last_name, project_name, position_name, start_date, end_date, is_active){
+    this.first_nameSource.next(first_name);
+    this.last_nameSource.next(last_name);
+    this.project_nameSource.next(project_name);
+    this.position_nameSource.next(position_name);
+    this.start_dateSource.next(start_date);
+    this.end_dateSource.next(end_date);
+    this.is_activeSource.next(is_active);
   }
-
 
   getMissions() {
     return this.http.get(`${this.uri}/missions`);
@@ -53,14 +72,11 @@ export class MissionService {
     return this.http.post(`${this.uri}/missions`, mission);
   }
 
-  updateMission(id, resource_id, project_id, position_id, start_date, end_date): Observable<any> {
+  updateMission(id, start_date, end_date, is_active): Observable<any> {
     const mission = {
-        resource_id: resource_id,
-        project_id: project_id,
-        position_id: position_id,
         start_date: start_date,
         end_date: end_date,
-        is_active: true
+        is_active: is_active
       }
     ;
     console.log('modified Mission: ', mission);

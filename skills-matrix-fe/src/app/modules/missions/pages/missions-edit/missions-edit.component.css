@@ -13,18 +13,17 @@
   .flex-right {
     align-self: flex-end;
   }
-  
-  #mission-create-form-container {
+
+  #mission-edit-form-container {
     width: 66%;
     margin: 28px auto;
     padding-bottom: 28px;
   }
   
-  #mission-create-form {
+  #mission-edit-form {
     margin: 28px;
   }
   
-  .mission-create-form-field {
+  .mission-edit-form-field {
     width: 100%;
   }
-  
