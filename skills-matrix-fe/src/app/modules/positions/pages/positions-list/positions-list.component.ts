@@ -23,7 +23,8 @@ export class PositionsListComponent implements AfterViewInit, OnInit {
               private router: Router) {}
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'project_id', 'project_name', 'position_name', 'description' ];
+  positions: any[];
+  displayedColumns = ['id', 'project_id', 'project_name', 'position_name', 'description' ,'actions'];
 
   ngOnInit() {
     this.dataSource = new PositionsListDataSource(this.positionService);
@@ -34,5 +35,21 @@ export class PositionsListComponent implements AfterViewInit, OnInit {
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
   }
+ 
+  fetchPositions() {
+    this.positionService.getPositions()
+      .subscribe( (response: any) => {
+        this.positions = response.data;
+        console.log('Data requested ...');
+        console.log(this.positions);
+      });
+  }
 
+  deletePosition(id) {
+    this.positionService
+      .deletePosition(id)
+      .subscribe(() => {
+        this.fetchPositions();
+      });
+  }
 }
