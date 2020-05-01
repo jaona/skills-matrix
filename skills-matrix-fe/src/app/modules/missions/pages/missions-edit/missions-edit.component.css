@@ -1,0 +1,33 @@
+.flex-spacer {
+    flex-grow: 1;
+  }
+  
+  .flex {
+    display: flex;
+  }
+  
+  .flex-left {
+    align-self: flex-start;
+  }
+  
+  .flex-right {
+    align-self: flex-end;
+  }
+
+  #mission-edit-form-container {
+    width: 66%;
+    margin: 28px auto;
+    padding-bottom: 28px;
+  }
+  
+  #mission-edit-form {
+    margin: 28px;
+  }
+  
+  .mission-edit-form-field {
+    width: 100%;
+  }
+
+  .disabled {
+    pointer-events: none;
+    opacity: 0.5;   }
